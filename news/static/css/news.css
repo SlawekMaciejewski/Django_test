@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "Courier New", monospace, serif;
+    font-size: 12px;
+}
+
+nav > ul {
+    list-style-type: none;
+}
+
+nav > ul > li {
+    display: inline-table;
+    width: 150px;
+    height: 26px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 14px;
+    border: 2px solid green;
+}
+
+a:link {
+    text-decoration: none;
+    color: yellow;
+}
+
+a:visited {
+    text-decoration: none;
+    color: yellow;
+}
