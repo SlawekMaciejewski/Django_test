@@ -13,6 +13,7 @@ class PostListView(ListView):
     paginate_by = 4
     template_name = 'news/post/list.html'
 
+
 class HomePage(TemplateView):
     template_name = 'home.html'
 
@@ -42,6 +43,9 @@ def send_email(request):
     else:
         form = EmailForm()
     return render(request, 'news/send_email.html', {'form': form})
+
+
+
 
 
 def post_detail(request, year, month, day, slug):
