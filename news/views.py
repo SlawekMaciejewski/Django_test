@@ -2,7 +2,7 @@ from django.shortcuts import HttpResponse, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, TemplateView
 
-from news.forms import EmailForm
+from news.forms import EmailForm, CommentForm
 from .models import Post
 
 
@@ -45,13 +45,22 @@ def send_email(request):
     return render(request, 'news/send_email.html', {'form': form})
 
 
-
-
-
 def post_detail(request, year, month, day, slug):
     post = get_object_or_404(Post, slug=slug, status='published', published__year=year,
                              published__month=month, published__day=day)
-    return render(request, 'news/post/detail.html', {'post': post})
+    comments = post.comments.filter(active=True)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+    else:
+        form = CommentForm()
+
+    return render(request, 'news/post/detail.html', {'post': post,
+                                                     'comments': comments,
+                                                     'form': form})
 
 
 def author(request):

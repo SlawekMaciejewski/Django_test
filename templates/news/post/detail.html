@@ -3,7 +3,27 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.content|linebreaks }}</p>
-{% endblock %}
+    <article>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content|linebreaks }}</p>
+    </article>
 
+
+<article>
+    <p>
+        {% with comments.count as no_of_comments %}
+        <h3>{{ no_of_comments }} komentarz{{ no_of_comments|pluralize:"y" }}</h3>
+        {% endwith %}
+        {% for comment in comments %}
+    <p>
+        {{ forloop.counter }}. Komentarz dodany przez
+        {{ comment.name }} w {{ comment.created }}<br />
+        {{ comment.content|linebreaks }}
+    </p>
+    {% empty %}
+    <p> Brak komentarzy</p>
+        {% endfor %}
+
+    </p>
+</article>
+{% endblock %}
