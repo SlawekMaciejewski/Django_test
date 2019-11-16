@@ -20,7 +20,7 @@ def home_page(request):
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status='published')
     paginator = Paginator(posts, 3)
     page = request.GET.get('page')
     try:

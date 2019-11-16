@@ -9,6 +9,7 @@
             <li>
                 <b>{{ post.title }}</b><br />
                     {{ post.published }}
+                <a href="{{ post.get_absolute_url }}"> Wyświetl szczegóły </a>
                 <details>
                     <i>{{ post.content|truncatechars:100|linebreaks }}</i>
                 </details>
