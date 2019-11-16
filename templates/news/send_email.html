@@ -1,5 +1,10 @@
 {% extends "news/base.html" %}
 
+{% block title %} Send e-mail {% endblock %}
 {% block content %}
-{{ form.as_p }}
+    <form action="mailto:b@om.pl" method="post">
+    {{ form.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Wyślij e-mail" />
+    </form>
 {% endblock %}
