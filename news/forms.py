@@ -1,0 +1,9 @@
+from django import forms
+
+
+class EmailForm(forms.Form):
+   name = forms.CharField(max_length=30)
+   email_from = forms.EmailField()
+   email_to = forms.EmailField()
+   title = forms.CharField(max_length=30)
+   text = forms.CharField(required=True, widget=forms.Textarea)

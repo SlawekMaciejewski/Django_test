@@ -1,6 +1,8 @@
 from django.shortcuts import HttpResponse, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, TemplateView
+
+from news.forms import EmailForm
 from .models import Post
 
 
@@ -30,6 +32,16 @@ def post_list(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     return render(request, 'news/post/list.html', {'page': page, 'posts': posts})
+
+
+def send_email(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = EmailForm()
+    return render(request, 'news/send_email.html', {'form': form})
 
 
 def post_detail(request, year, month, day, slug):
