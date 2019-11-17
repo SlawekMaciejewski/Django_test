@@ -1,10 +1,20 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .forms import LogInForm
 
 
 # Create your views here.
+
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('home_page')
+    template_name = 'account/signup.html'
+
 
 
 def log_in(request):
@@ -25,3 +35,5 @@ def log_in(request):
     else:
         form = LogInForm()
     return render(request, 'account/login.html', {'form': form})
+
+

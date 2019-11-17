@@ -19,6 +19,7 @@
             <p>Hello {{ user.username }}</p>
         {% else %}
             <li><a href="{% url 'login' %}">Zaloguj</a></li>
+            <li><a href="{% url 'signup' %}">Załóż konto</a></li>
         {% endif %}
     </ul>
 
