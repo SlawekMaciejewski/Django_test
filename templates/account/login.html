@@ -1,0 +1,17 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+    <h2>Logowanie</h2>
+    <form action="." method="post">
+        <table>
+            {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="Zaloguj"/>
+    </form>
+{% endblock %}
