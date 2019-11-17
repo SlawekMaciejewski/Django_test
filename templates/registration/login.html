@@ -1,0 +1,16 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+    <h2>Logowanie</h2>
+    {% if form.errors %}
+        <p>Nieprawidłowa nazwa użytkownika lub hasł</p>
+    {% else %}
+        <p>Wypełnij poniższy formularz</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}"/>
+        <p><input type="submit" value="Zaloguj się"/></p>
+    </form>
+{% endblock %}

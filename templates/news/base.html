@@ -4,22 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/news.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/news.css' %}"/>
 </head>
 <body>
-    <header></header>
-    <nav>
-        <ul>
-            <li><a href="{% url 'home_page' %}">Home</a></li>
-            <li><a href="{% url 'post_list' %}">Posty</a></li>
-            <li><a href="{% url 'author' %}">Autor</a></li>
-            <li><a href="{% url 'send_email' %}">Send Email</a></li>
-        </ul>
-    </nav>
-    <section>
-        {% block content %}{% endblock %}
-    </section>
-    <footer></footer>
+<header></header>
+<nav>
+    <ul>
+        <li><a href="{% url 'home_page' %}">Home</a></li>
+        <li><a href="{% url 'post_list' %}">Posty</a></li>
+        <li><a href="{% url 'author' %}">Autor</a></li>
+        <li><a href="{% url 'send_email' %}">Send Email</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            <p>Hello {{ user.username }}</p>
+        {% else %}
+            <li><a href="{% url 'login' %}">Zaloguj</a></li>
+        {% endif %}
+    </ul>
+
+</nav>
+<section>
+    {% block content %}{% endblock %}
+</section>
+<footer></footer>
 </body>
 </html>
 
