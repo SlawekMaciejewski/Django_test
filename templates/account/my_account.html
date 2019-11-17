@@ -1,0 +1,14 @@
+{% extends "news/base.html" %}
+{% block content %}
+    <p><h2>Dane o użytkowniku {{ user.username }}</h2></p>
+    {% if user.is_authenticated %}
+        <p> User name: {{ user.username }} </p>
+        <p>Email: {{ user.email }}</p>
+        <p>Imię: {{ user.first_name }}</p>
+        <p>Nazwisko: {{ user.last_name }}</p>
+
+    {% else %}
+        <li><a href="{% url 'login' %}">Zaloguj się</a></li>
+    {% endif %}
+
+{% endblock %}

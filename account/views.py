@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 
 from .forms import LogInForm
 
@@ -14,6 +14,9 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('home_page')
     template_name = 'account/signup.html'
+
+class UserView(TemplateView):
+    template_name = 'account/my_account.html'
 
 
 

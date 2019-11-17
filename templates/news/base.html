@@ -16,9 +16,12 @@
         <li><a href="{% url 'send_email' %}">Send Email</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            <li><a href="{% url 'password_reset' %}">Resetuj hasło</a></li>
+            <li><a href="{% url 'my_account' %}">Dane o użytkowniku</a></li>
             <p>Hello {{ user.username }}</p>
         {% else %}
             <li><a href="{% url 'login' %}">Zaloguj</a></li>
+            <li><a href="{% url 'password_reset' %}">Resetuj hasło</a></li>
             <li><a href="{% url 'signup' %}">Załóż konto</a></li>
         {% endif %}
     </ul>
