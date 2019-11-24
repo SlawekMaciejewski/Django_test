@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -12,6 +13,8 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, unique_for_date='published')
     author = models.ForeignKey(User, related_name='news_posts', on_delete=models.CASCADE)
     content = models.TextField()
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                   related_name='post_likes', blank=True)
 
     published = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)

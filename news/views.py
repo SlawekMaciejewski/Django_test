@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, TemplateView
@@ -34,6 +37,19 @@ def post_list(request):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'news/post/list.html', {'page': page, 'posts': posts})
 
+@login_required
+@require_POST
+def like_post(request):
+    id = request.POST.get('id')
+    action = request.POST.get('action')
+    if id and action:
+        try:
+            post = Post.objects.get(pk=id)
+            if action == 'like': post.users.add(request.user)
+            else: post.users.remove(request.user)
+            return JsonResponse({'status': 'ok'})
+        except: pass
+    return JsonResponse({'status': 'ok'})
 
 def send_email(request):
     if request.method == 'POST':

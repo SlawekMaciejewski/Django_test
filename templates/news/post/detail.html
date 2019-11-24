@@ -44,4 +44,39 @@
         <input type="submit" value="Dodaj komentarz"/>
     </form>
 
+    {% with total_likes=post.users.count users=post.users.all %}
+    <p>Obecnie jest <span class="total">{{ total_likes }}</span> polubień.</p>
+    <a class="like" href="#"
+       data-id="{{ post.pk }}"
+       data-action="{% if request.user in users %}un{% endif %}like">
+    {% if request.user not in users %} Lubię
+    {% else %} Nie lubię
+    {% endif %}</a>
+    {% endwith %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+        }
+    });
+    $(document).ready(function() {
+        $('a.like').click(function(e) {
+            e.preventDefault();
+            $.post('{% url "like" %}',
+                { id: $(this).data('id'), action: $(this).data('action') },
+                function(data) {
+                    if (data['status'] == 'ok') {
+                        var action = $('a.like').data('action');
+                        $('a.like').data('action', action == 'like' ? 'unlike' : 'like');
+                        $('a.like').text(action == 'like' ? 'Nie lubię' : 'lubię');
+                        var like_num = parseInt($('span.total').text())
+                        $('span.total').text(action == 'like' ? like_num + 1 : like_num - 1);
+                    }
+                }
+             );
+        });
+    });
+</script>
 {% endblock %}
