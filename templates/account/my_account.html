@@ -6,6 +6,7 @@
         <p>Email: {{ user.email }}</p>
         <p>Imię: {{ user.first_name }}</p>
         <p>Nazwisko: {{ user.last_name }}</p>
+        <p> Data urodzin: {{ user.userprofile.date_of_birth }}</p>
 
     {% else %}
         <li><a href="{% url 'login' %}">Zaloguj się</a></li>
